@@ -1,4 +1,4 @@
-bb = require ('bonescript');
+b = require ('bonescript');
 
 var ledPin = "P8_13";
 var ledPin2 = "USR3";
@@ -25,8 +25,8 @@ child.on('error', function () {
 	b.digitalWrite(ledPin2, state);
 });
 
-forever.on ('restart', function () {
-	var state = b.LOW;
+child.on ('restart', function () {
+	var state = b.HIGH;
 	b.digitalWrite(ledPin, state);
 	b.digitalWrite(ledPin2, state);
 });
