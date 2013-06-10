@@ -9,4 +9,5 @@ npm install dial-a-device-node
 npm install forever-monitor
 
 cd /var/lib/cloud9/dial-a-device-bb
+env GIT_SSL_NO_VERIFY=true git pull
 cp forever.js /var/lib/cloud9/autorun/
