@@ -1,14 +1,26 @@
-b = require ('bonescript');
+var bb = true;
+
+try {
+	b = require ('bonescript');
+} catch (err) {
+	bb = false;
+}
+
+
+if (bb) {
 
 var ledPin = "P8_13";
 var ledPin2 = "USR3";
 
-b.pinMode(ledPin, b.OUTPUT);
-b.pinMode(ledPin2, b.OUTPUT);
+if (b) b.pinMode(ledPin, b.OUTPUT);
+if (b) b.pinMode(ledPin2, b.OUTPUT);
 
 var state = b.LOW;
 b.digitalWrite(ledPin, state);
 b.digitalWrite(ledPin2, state);
+
+}
+
 
 forever = require ('forever-monitor');
 
@@ -17,30 +29,6 @@ var child = new (forever.Monitor)('start.js', {
 	sourceDir: '/var/lib/cloud9/dial-a-device-bb',
 	killTree: true,
 	options: []
-});
-
-child.on('error', function () {
-	var state = b.LOW;
-	b.digitalWrite(ledPin, state);
-	b.digitalWrite(ledPin2, state);
-});
-
-child.on ('restart', function () {
-	var state = b.HIGH;
-	b.digitalWrite(ledPin, state);
-	b.digitalWrite(ledPin2, state);
-});
-
-child.on ('start', function () {
-	var state = b.HIGH;
-	b.digitalWrite(ledPin, state);
-	b.digitalWrite(ledPin2, state);
-});
-
-child.on ('stop', function() {
-	var state = b.LOW;
-	b.digitalWrite(ledPin, state);
-	b.digitalWrite(ledPin2, state);
 });
 
 child.start();
