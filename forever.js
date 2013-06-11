@@ -25,7 +25,7 @@ b.digitalWrite(ledPin2, state);
 forever = require ('forever-monitor');
 
 var child = new (forever.Monitor)('start.js', {
-	silent: true,
+	silent: false,
 	sourceDir: '/var/lib/cloud9/dial-a-device-bb',
 	killTree: true,
 	options: []

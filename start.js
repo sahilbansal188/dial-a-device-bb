@@ -33,7 +33,7 @@ function start() {
 
 
 function getSN() {
-beaglebonechip.getSerialNumber();
+beaglebonechip.getSerialNumber(bb);
 
 var intervalIPcheck = setInterval (function() {
 

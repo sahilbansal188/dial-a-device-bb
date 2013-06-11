@@ -8,7 +8,6 @@ opkg install python-compiler
 npm update
 npm install dial-a-device-node
 npm install forever-monitor
-npm install qs
 
 cd /var/lib/cloud9/dial-a-device-bb
 env GIT_SSL_NO_VERIFY=true git pull

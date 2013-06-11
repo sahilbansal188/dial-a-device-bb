@@ -8,12 +8,17 @@ var os = require ('os');
 	var ipaddress;
 	var serialnumber;
 
-	exports.getSerialNumber = function () {
+	exports.getSerialNumber = function (bb) {
+
+        if (bb) {
 
     	exec ("hexdump -e '8/1 \"%c\"' /sys/bus/i2c/devices/0-0050/eeprom -s 16 -n 12", function(error, stdout, stderr) {
 
     		serialnumber = stdout;
     	});
+    } else {
+        serialnumber = "12345";
+    }
 
     }
 
