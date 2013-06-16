@@ -20,7 +20,7 @@ var os = require ('os');
 
         require('getmac').getMac(function(err,macAddress){
             if (err)  throw err;
-            serialnumber = macAddress;  
+            serialnumber = macAddress.replace(/\:/g, "");  
         });
 
     }
