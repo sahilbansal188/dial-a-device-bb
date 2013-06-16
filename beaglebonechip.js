@@ -17,7 +17,12 @@ var os = require ('os');
     		serialnumber = stdout;
     	});
     } else {
-        serialnumber = "12345";
+
+        require('getmac').getMac(function(err,macAddress){
+            if (err)  throw err;
+            serialnumber = macAddress;  
+        });
+
     }
 
     }
