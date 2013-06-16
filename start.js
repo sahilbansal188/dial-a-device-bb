@@ -1,5 +1,7 @@
 var bb = true;
 
+var serverurl = "http://www.dial-a-device.com"
+
 var bbinfo;
 
 try {
@@ -73,13 +75,7 @@ var intervalIPcheck = setInterval (function() {
 
 function getBBInfo() {
 
-dialadeviceweb.getBBInfo(beaglebonechip.myserial(), function (message) {
-	bbinfo = message;
 
-}, function (message) {
-	clearInterval(intervalIDcheck);
-	console.log ("Error "+message);
-});
 
 var intervalIDcheck = setInterval (function() {
 
@@ -92,12 +88,20 @@ var intervalIDcheck = setInterval (function() {
 
 }, 1000);
 
+dialadeviceweb.getBBInfo(serverurl, beaglebonechip.myserial(), function (message) {
+	bbinfo = message;
+
+}, function (message) {
+	clearInterval(intervalIDcheck);
+	console.log ("Error "+message);
+});
+
 };
 
 
 function createBB() {
 
-	dialadeviceweb.setBBInfo(bbinfo, beaglebonechip.myip(), beaglebonechip.myserial(), getBBInfo());
+	dialadeviceweb.setBBInfo(serverurl, bbinfo, beaglebonechip.myip(), beaglebonechip.myserial(), getBBInfo());
 	
 
 };
@@ -114,7 +118,7 @@ function updateBB() {
 		b.digitalWrite(ledPin2, state);
 	}
 
-	dialadeviceweb.setBBInfo(bbinfo, beaglebonechip.myip(), beaglebonechip.myserial(), startNode());
+	dialadeviceweb.setBBInfo(serverurl, bbinfo, beaglebonechip.myip(), beaglebonechip.myserial(), startNode());
 	
 
 };
@@ -127,21 +131,21 @@ function startNode () {
 
 var dialadevicenode = require ('dial-a-device-node');
 
-dialadevicenode.set_ser_string ('/dev/ttyACM0');
+dialadevicenode.set_ser_string (bbinfo.device.portname);
 
-dialadevicenode.set_ser_baud (115200);
+dialadevicenode.set_ser_baud (bbinfo.device.portbaud);
 
-dialadevicenode.set_device_id (1);
+dialadevicenode.set_device_id (bbinfo.device.id);
 
-dialadevicenode.set_url_string ('http://www.dial-a-device.com/websocket');
+dialadevicenode.set_url_string (serverurl+'/websocket');
 
-dialadevicenode.set_device_type ('knf-sc920');
+dialadevicenode.set_device_type (bbinfo.devicetype.name);
 
 dialadevicenode.set_unique_id ('gf638h2g7g86g3');
 
-dialadevicenode.set_simulate (true);
+dialadevicenode.set_simulate (false);
 
-// dialadevicenode.run();
+dialadevicenode.run();
 
 }
 

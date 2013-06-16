@@ -7,9 +7,9 @@ var myhttp = require ('http');
 
     }
 
-    exports.getBBInfo = function (serialnumber, callback, callback2) {
+    exports.getBBInfo = function (serverurl, serialnumber, callback, callback2) {
 
-    	myhttp.get ("http://www.dial-a-device.com/connect/"+serialnumber+".json", function (res) {
+    	myhttp.get (serverurl+"/connect/"+serialnumber+".json", function (res) {
     		var body = "";
 
     		res.on ('data', function (chunk) {
@@ -18,8 +18,9 @@ var myhttp = require ('http');
 
     		res.on ('end', function () {
     			var myResponse = JSON.parse (body);
-    			if (myResponse[0]) {
-    				callback (myResponse[0]);
+
+    			if (myResponse) {
+    				callback (myResponse);
     			} else {
     				callback ({});
     			}
@@ -30,10 +31,12 @@ var myhttp = require ('http');
 
     }
 
-    exports.setBBInfo = function (bbinfo, myip, myserial, callback) {
+    exports.setBBInfo = function (serverurl, bbinfo, myip, myserial, callback) {
+
+        var hn = serverurl.substr (7);
 
     	var options =  {
-    		hostname: "www.dial-a-device.com",
+    		hostname: hn,
     		port: 80,
     		path: "/beaglebones/"+bbinfo.id,
     		method: "PUT",
@@ -43,7 +46,7 @@ var myhttp = require ('http');
     	if (!bbinfo.id) {
 
     		options =  {
-    		hostname: "www.dial-a-device.com",
+    		hostname: hn,
     		port: 80,
     		path: "/beaglebones",
     		method: "POST",
