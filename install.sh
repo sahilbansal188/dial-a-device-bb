@@ -6,6 +6,7 @@ cd /var/lib/cloud9
 env GIT_SSL_NO_VERIFY=true git clone https://github.com/Cominch/dial-a-device-bb
 opkg install python-compiler
 npm update
+npm install getmac
 npm install dial-a-device-node
 npm install forever-monitor
 
