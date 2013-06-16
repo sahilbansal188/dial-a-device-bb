@@ -148,9 +148,9 @@ function startNode () {
 
 		dialadevicenode.set_device_type (bbinfo.devicetype.name);
 
-		dialadevicenode.set_unique_id ('gf638h2g7g86g3');
+		dialadevicenode.set_unique_id (beaglebonechip.myserial());
 
-		dialadevicenode.set_simulate (false);
+		dialadevicenode.set_simulate (true);
 
 		dialadevicenode.run();
 
